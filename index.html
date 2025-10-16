@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marco & Sarah - We're Getting Married!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&family=Cairo:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #f5f0e8 0%, #e8dfd2 100%);
+        color: #333;
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      body.rtl {
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+      }
+
+      /* Animated branches */
+      .branch {
+        position: fixed;
+        pointer-events: none;
+        opacity: 0.15;
+        z-index: 1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #f5f0e8 0%, #e8dfd2 100%);
+        color: #333;
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+      }
+      body.rtl {
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* RSVP Section */
+      .rsvp-section {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #b8860b;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        padding: 50px 30px;
+        margin: 60px 0;
+      }
+      .rsvp-section h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        color: #b8860b;
+        margin-bottom: 25px;
+      }
+      .rsvp-form {
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .rsvp-form input,
+      .rsvp-form select {
+        padding: 12px 15px;
+        border: 2px solid #e8dfd2;
+        border-radius: 10px;
+        font-size: 1rem;
+        outline: none;
+      }
+      .rsvp-form button {
+        background: #b8860b;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .rsvp-form button:hover {
+        background: #a07809;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+      }
+      .thank-you {
+        font-size: 1.3rem;
+        color: #b8860b;
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Background Image - Fixed */
+      .bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("./277d678d-340b-42ae-9aa9-92debece7ea4.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        z-index: 0;
+      }
+
+      .bg-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(3px);
+      }
+
+      .bg-image.active {
+        opacity: 1;
+      }
+
+      /* Language Toggle */
+      .lang-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        font-weight: 600;
+        color: #b8860b;
+        transition: all 0.3s ease;
+        border: 2px solid #b8860b;
+      }
+
+      .lang-toggle:hover {
+        background: #b8860b;
+        color: white;
+        transform: scale(1.05);
+      }
+
+      body.rtl .lang-toggle {
+        right: auto;
+        left: 20px;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 60px 20px 40px;
+        animation: fadeInDown 1s ease-out;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", serif;
+        color: #b8860b;
+        font-weight: 700;
+      }
+
+      body.rtl h1,
+      body.rtl h2,
+      body.rtl h3 {
+        font-family: "Cairo", sans-serif;
+      }
+
+      .names {
+        font-size: clamp(3rem, 8vw, 5rem);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .tagline {
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        color: #555;
+        margin-bottom: 30px;
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+
+      .date-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ffffff 0%, #f9f6f0 100%);
+        padding: 30px 50px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(184, 134, 11, 0.2);
+        border: 3px solid #b8860b;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.03);
+        }
+      }
+
+      .date-day {
+        font-size: clamp(3rem, 6vw, 4.5rem);
+        font-weight: 700;
+        color: #b8860b;
+        display: block;
+        line-height: 1;
+      }
+
+      .date-month,
+      .date-year {
+        font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        display: block;
+      }
+
+      /* Photo Section */
+      .photo-container {
+        text-align: center;
+        padding: 60px 20px;
+        animation: fadeIn 1.5s ease-out;
+        min-height: 500px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .couple-photo {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        border: 8px solid #fff;
+        transition: transform 0.3s ease;
+      }
+
+      .couple-photo:hover {
+        transform: scale(1.02);
+      }
+
+      /* Content Section */
+      .content-section {
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Countdown Section */
+      .countdown-section {
+        text-align: center;
+        padding: 60px 20px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 30px;
+        margin: 40px 0;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        margin-bottom: 40px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #b8860b, transparent);
+      }
+
+      .countdown {
+        display: flex;
+        justify-content: center;
+        gap: clamp(15px, 3vw, 30px);
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .countdown-item {
+        background: linear-gradient(135deg, #ffffff 0%, #f9f6f0 100%);
+        padding: clamp(20px, 3vw, 30px);
+        border-radius: 15px;
+        width: 130px;
+        box-shadow: 0 8px 25px rgba(184, 134, 11, 0.15);
+        border: 2px solid #e8dfd2;
+        transition: all 0.3s ease;
+      }
+
+      .countdown-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(184, 134, 11, 0.25);
+      }
+
+      .countdown-number {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        color: #b8860b;
+        display: block;
+        line-height: 1;
+      }
+
+      .countdown-label {
+        font-size: clamp(0.8rem, 1.5vw, 1rem);
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 8px;
+        display: block;
+      }
+
+      /* Events Section */
+      .events-section {
+        padding: 60px 20px;
+      }
+
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .event-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border: 2px solid #b8860b;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .event-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #b8860b, #d4af37);
+      }
+
+      .event-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 50px rgba(184, 134, 11, 0.2);
+      }
+
+      .event-title {
+        font-size: clamp(1.5rem, 3vw, 1.8rem);
+        margin-bottom: 20px;
+      }
+
+      .event-time {
+        font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .event-location {
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        color: #555;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      .map-btn {
+        display: inline-block;
+        background: #b8860b;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+        border: none;
+      }
+
+      .map-btn:hover {
+        background: #a07a0a;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(184, 134, 11, 0.4);
+        border: none;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 60px 20px 40px;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: #777;
+      }
+
+      .footer-heart {
+        color: #b8860b;
+        font-size: 1.5em;
+        display: inline-block;
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        10%,
+        30% {
+          transform: scale(1.2);
+        }
+        20%,
+        40% {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .branch-top-left,
+        .branch-top-right {
+          width: 200px;
+          height: 200px;
+        }
+
+        .branch-bottom-left,
+        .branch-bottom-right {
+          width: 150px;
+          height: 150px;
+        }
+
+        .events-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 20px 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .date-badge {
+          padding: 20px 30px;
+        }
+
+        .countdown {
+          gap: 10px;
+        }
+
+        .event-card {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Image (appears on scroll) -->
+    <div class="bg-image" id="bgImage"></div>
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle" onclick="toggleLanguage()">
+      <span class="lang-text">العربية</span>
+    </div>
+
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero">
+        <h1 class="names">
+          <span class="en-text">Marco & Sarah</span>
+          <span class="ar-text" style="display: none">ماركو & سارة</span>
+        </h1>
+        <p class="tagline">
+          <span class="en-text"
+            >Joyfully Request the Pleasure of Your Company</span
+          >
+          <span class="ar-text" style="display: none"
+            >يسعدنا دعوتكم للاحتفال بزفافنا</span
+          >
+        </p>
+        <div class="date-badge">
+          <span class="date-day">11</span>
+          <span class="date-month">
+            <span class="en-text">November</span>
+            <span class="ar-text" style="display: none">نوفمبر</span>
+          </span>
+          <span class="date-year">2025</span>
+        </div>
+      </section>
+
+      <!-- Photo Section -->
+      <section class="photo-container">
+        <img
+          src="./277d678d-340b-42ae-9aa9-92debece7ea4.jpg"
+          alt="Marco and Sarah"
+          class="couple-photo"
+        />
+      </section>
+
+      <!-- Content Section (where background appears) -->
+      <div class="content-section">
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+          <h2 class="section-title">
+            <span class="en-text">The Big Day Is Almost Here!</span>
+            <span class="ar-text" style="display: none"
+              >اليوم المنتظر اقترب!</span
+            >
+          </h2>
+          <div id="countdown" class="countdown"></div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="events-section">
+          <h2 class="section-title" style="text-align: center; display: block">
+            <span class="en-text">The Celebration</span>
+            <span class="ar-text" style="display: none">تفاصيل الاحتفال</span>
+          </h2>
+          <div class="events-grid">
+            <div class="event-card">
+              <h3 class="event-title">
+                <span class="en-text">The Ceremony (Church)</span>
+                <span class="ar-text" style="display: none"
+                  >حفل الزفاف (الكنيسة)</span
+                >
+              </h3>
+              <p class="event-time">6:00 PM</p>
+              <p class="event-location">
+                <span class="en-text"
+                  >St. Michael Archangel Coptic Orthodox Church, Sheraton</span
+                >
+                <span class="ar-text" style="display: none"
+                  >كنيسة الملاك ميخائيل القبطية الأرثوذكسية، شيراتون</span
+                >
+              </p>
+              <a
+                href="https://maps.app.goo.gl/biaaatVNC9me1Dqg7"
+                target="_blank"
+                class="map-btn"
+              >
+                <span class="en-text">View Map Location</span>
+                <span class="ar-text" style="display: none">عرض الموقع</span>
+              </a>
+            </div>
+
+            <div class="event-card">
+              <h3 class="event-title">
+                <span class="en-text">The Reception (Celebration)</span>
+                <span class="ar-text" style="display: none">حفل الاستقبال</span>
+              </h3>
+              <p class="event-time">7:30 PM</p>
+              <p class="event-location">
+                <span class="en-text">Aero Sport Club</span>
+                <span class="ar-text" style="display: none"
+                  >نادي ايرو سبورت</span
+                >
+              </p>
+              <a
+                href="https://maps.app.goo.gl/AhQ384jUsYRL5E5EA"
+                target="_blank"
+                class="map-btn"
+              >
+                <span class="en-text">View Map Location</span>
+                <span class="ar-text" style="display: none">عرض الموقع</span>
+              </a>
+            </div>
+          </div>
+        </section>
+        <!-- <section class="rsvp-section">
+          <h2>
+            <span class="en-text">RSVP</span
+            ><span class="ar-text" style="display: none">تأكيد الحضور</span>
+          </h2>
+          <form class="rsvp-form" id="rsvpForm">
+            <input
+              type="text"
+              id="guestName"
+              placeholder="Your Name"
+              required
+            />
+            <select id="attendance" required>
+              <option value="" disabled selected>Will you attend?</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <button type="submit">
+              <span class="en-text">Confirm Your Attendance</span
+              ><span class="ar-text" style="display: none">تأكيد الحضور</span>
+            </button>
+          </form>
+          <div id="thankYou" class="thank-you" style="display: none">
+            <span class="en-text">Thank you for confirming!</span
+            ><span class="ar-text" style="display: none"
+              >شكرًا لتأكيد حضورك!</span
+            >
+          </div>
+        </section> -->
+
+        <!-- Footer -->
+        <footer class="footer">
+          <span class="en-text">We can't wait to celebrate with you!</span>
+          <span class="ar-text" style="display: none"
+            >نحن في انتظار الاحتفال معكم</span
+          >
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      // Language Toggle
+      let isEnglish = true;
+
+      function toggleLanguage() {
+        isEnglish = !isEnglish;
+        const body = document.body;
+        const langText = document.querySelector(".lang-text");
+        const enElements = document.querySelectorAll(".en-text");
+        const arElements = document.querySelectorAll(".ar-text");
+
+        if (isEnglish) {
+          body.classList.remove("rtl");
+          body.setAttribute("dir", "ltr");
+          langText.textContent = "العربية";
+          enElements.forEach((el) => (el.style.display = ""));
+          arElements.forEach((el) => (el.style.display = "none"));
+        } else {
+          body.classList.add("rtl");
+          body.setAttribute("dir", "rtl");
+          langText.textContent = "English";
+          enElements.forEach((el) => (el.style.display = "none"));
+          arElements.forEach((el) => (el.style.display = ""));
+        }
+        updateCountdown(); // Update countdown labels
+      }
+
+      // Background Image on Scroll
+      const bgImage = document.getElementById("bgImage");
+      const photoContainer = document.querySelector(".photo-container");
+
+      window.addEventListener("scroll", () => {
+        const photoBottom =
+          photoContainer.offsetTop + photoContainer.offsetHeight;
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition > photoBottom - 200) {
+          bgImage.classList.add("active");
+        } else {
+          bgImage.classList.remove("active");
+        }
+      });
+
+      // Countdown Timer
+      const countDownDate = new Date("Nov 11, 2025 18:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const isArabic = !isEnglish;
+
+        document.getElementById(
+          "countdown"
+        ).innerHTML = `<div class="countdown-item">
+          <span class="countdown-number">${days}</span>
+          <span class="countdown-label">${isArabic ? "يوم" : "Days"}</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${hours}</span>
+          <span class="countdown-label">${isArabic ? "ساعة" : "Hours"}</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${minutes}</span>
+          <span class="countdown-label">${isArabic ? "دقيقة" : "Minutes"}</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number">${seconds}</span>
+          <span class="countdown-label">${isArabic ? "ثانية" : "Seconds"}</span>
+        </div>`;
+
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById(
+            "countdown"
+          ).innerHTML = `<h3 style="color: #b8860b; font-size: 2rem;">
+            ${
+              isArabic
+                ? "لقد تزوجنا! شكراً للاحتفال معنا"
+                : "We Are Married! Thank you for celebrating with us."
+            }
+          </h3>`;
+        }
+      }
+
+      const countdownInterval = setInterval(updateCountdown, 1000);
+      updateCountdown();
+      const form = document.getElementById("rsvpForm");
+      const thankYou = document.getElementById("thankYou");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("guestName").value.trim();
+        const attending = document.getElementById("attendance").value;
+        if (!name || !attending) return;
+        const subject = `Wedding RSVP from ${name}`;
+        const body = `Name: ${name}%0D%0AAttendance: ${attending}`;
+        window.location.href = `mailto:kikokero11@gmail.com?subject=${encodeURIComponent(
+          subject
+        )}&body=${body}`;
+        form.style.display = "none";
+        thankYou.style.display = "block";
+      });
+    </script>
+  </body>
+</html>
